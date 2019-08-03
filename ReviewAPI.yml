@@ -1,0 +1,108 @@
+swagger: '2.0'
+info:
+  description: This API provides the ability to the clients to write reviews on the businesses. 
+  version: 1.0.0
+  title: Review API
+  # put the contact info for your development or API team
+  contact:
+    email: sainath.gulari@thikva.com
+
+  license:
+    name: Apache 2.0
+    url: http://www.apache.org/licenses/LICENSE-2.0.html
+
+# tags are used for organizing operations
+tags:
+- name: admins
+  description: Secured Admin-only calls
+- name: developers
+  description: Operations available to regular developers
+
+paths:
+  /business/review:
+    post:
+      tags:
+      - developers
+      summary: Write review on the business.
+      description: |
+        By passing in the appropriate options, you can write the review on the business.
+      produces:
+      - application/json
+      
+      parameters:
+      - in: body
+        name: CreateReviewRequest
+        schema:
+          $ref: '#/definitions/CreateReviewRequest'
+      responses:
+        204:
+          description: Review is posted on the business
+        400:
+          description: Invalid input parameter
+          
+  /business/review/{businessId}:          
+    get:
+      tags:
+      - admins
+      summary: Retrieve business review comments.
+      description: Retrieve business review comments.
+      consumes:
+      - application/json
+      produces:
+      - application/json
+      parameters:
+      - in: body
+        name: CreateReviewResponse
+        schema:
+          $ref: '#/definitions/CreateReviewResponse'
+      - in: path
+        name: businessId
+        description: Unique id for the business
+        required: true
+        type: string    
+      responses:
+        201:
+          description: succefully retrieved reviews for the business.
+        400:
+          description: invalid input, object invalid
+
+definitions:
+  CreateReviewRequest:
+    type: object
+    properties:
+      Reviews:
+       type: array
+       items:
+          $ref: '#/definitions/Review'
+      
+  Review:
+    type: object
+    properties:
+      firstName:
+        type: string
+      lastName:
+        type: string
+      reviewDescription:
+       type: string
+      rating:
+       type: string
+
+  CreateReviewResponse:
+    type: object
+    properties:
+      firstName:
+        type: string
+      lastName:
+        type: string
+      reviewDescription:
+        type: string
+      rating:
+        type: string  
+        
+# Added by API Auto Mocking Plugin
+host: virtserver.swaggerhub.com
+# basePath: /saigoud1000/test/1.0.0
+schemes:
+ - https
+# Added by API Auto Mocking Plugin
+basePath: /saigoud1000/dsfg/1.0.0
