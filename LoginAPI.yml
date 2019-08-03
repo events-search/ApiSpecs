@@ -1,0 +1,91 @@
+swagger: '2.0'
+info:
+  description: This API provides the ability to Login in to business and customer profiles.
+  version: 1.0.0
+  title: Customer and Business login API
+  # put the contact info for your development or API team
+  contact:
+    email: sainath.gulari@thikva.com
+
+  license:
+    name: Apache 2.0
+    url: http://www.apache.org/licenses/LICENSE-2.0.html
+
+# tags are used for organizing operations
+tags:
+- name: admins
+  description: Secured Admin-only calls
+- name: developers
+  description: Operations available to regular developers
+
+paths:
+  /customer/login/{customerId}:
+    post:
+      tags:
+      - developers
+      summary: Customer Login
+      description: |
+        By passing in the appropriate options, you can login in to customer profile.
+      produces:
+      - application/json
+      parameters:
+      - in: body
+        name: LoginRequest
+        schema:
+          $ref: '#/definitions/LoginRequest'
+      - in: path
+        name: customerId
+        description: Unique id for the customer
+        required: true
+        type: string    
+      responses:
+        204:
+          description: Customer Login Successful
+        400:
+          description: Invalid input parameter
+          
+  /business/login/{businessId}:          
+    post:
+      tags:
+      - admins
+      summary: Business login.
+      description: Business login.
+      consumes:
+      - application/json
+      produces:
+      - application/json
+      parameters:
+      - in: body
+        name: LoginRequest
+        schema:
+          $ref: '#/definitions/LoginRequest'
+      - in: path
+        name: businessId
+        description: Unique id for the customer
+        required: true
+        type: string
+      responses:
+        204:
+          description: Business login successful
+        400:
+          description: invalid input parameter
+          
+definitions:
+  LoginRequest:
+    type: object
+    required:
+    - username
+    - password
+    properties:
+      username:
+        type: string
+      password:
+        type: string
+        
+# Added by API Auto Mocking Plugin
+host: virtserver.swaggerhub.com
+# basePath: /saigoud1000/test/1.0.0
+schemes:
+ - https
+# Added by API Auto Mocking Plugin
+basePath: /saigoud1000/LoginAPIV1/1.0.0

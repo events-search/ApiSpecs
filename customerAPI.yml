@@ -1,0 +1,104 @@
+swagger: '2.0'
+info:
+  description: This API provides the ability to the clients to Create the customer profile.
+  version: 1.0.0
+  title: Create Customer API
+  # put the contact info for your development or API team
+  contact:
+    email: sainath.gulari@thikva.com
+
+  license:
+    name: Apache 2.0
+    url: http://www.apache.org/licenses/LICENSE-2.0.html
+
+# tags are used for organizing operations
+tags:
+- name: admins
+  description: Secured Admin-only calls
+- name: developers
+  description: Operations available to regular developers
+
+paths:
+  /customer/{customerId}:
+    get:
+      tags:
+      - developers
+      summary: Creates customer profile
+      description: |
+        By passing in the appropriate options, you can create customer profile.
+      produces:
+      - application/json
+      parameters:
+      - in: path
+        name: customerId
+        description: Unique id for the business
+        required: true
+        type: string
+      responses:
+        200:
+          description: Customer record created
+          schema:
+            type: object
+            items:
+              $ref: '#/definitions/CreateCustomerResponse'
+        400:
+          description: Invalid input parameter
+          
+  /customer:          
+    post:
+      tags:
+      - admins
+      summary: create customer.
+      description: To create business with provided details.
+      consumes:
+      - application/json
+      produces:
+      - application/json
+      parameters:
+      - in: body
+        name: CreateCustomerRequest
+        schema:
+          $ref: '#/definitions/CreateCustomerRequest'
+      responses:
+        201:
+          description: succefully created the customer profile.
+        400:
+          description: invalid input, object invalid
+        409:
+          description: customer already existing with provided details.
+definitions:
+  CreateCustomerRequest:
+    type: object
+    required:
+    - firstName
+    - lastName
+    - emailId
+    - userName
+    - password
+    properties:
+      firstName:
+        type: string
+      lastName:
+        type: string
+      emailId:
+        type: string
+      userName:
+        type: string
+      password:
+        type: string
+
+  CreateCustomerResponse:
+    type: object
+    properties:
+      firstName:
+        type: string
+      lastName:
+        type: string
+      emailId:
+        type: string
+        
+# Added by API Auto Mocking Plugin
+host: virtserver.swaggerhub.com
+basePath: /saigoud1000/test/1.0.0
+schemes:
+ - https
