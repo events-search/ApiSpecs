@@ -1,0 +1,294 @@
+swagger: '2.0'
+info:
+  description: This API gives the clients the ability to create, retrieve, update the business.
+  version: 1.0.0
+  title: Busienss API
+  # put the contact info for your development or API team
+  contact:
+    email: sainath.gulari@thikva.com
+
+  license:
+    name: Apache 2.0
+    url: http://www.apache.org/licenses/LICENSE-2.0.html
+
+paths:
+  /business/{businessId}:
+    get:
+      tags:
+      - developers
+      summary: searches existing business in the database
+      operationId: searchInventory
+      description: |
+        By passing in the appropriate options, you can search for
+        available business in the system
+      produces:
+      - application/json
+      parameters:
+      - in: path
+        name: businessId
+        description: Unique id for the business
+        required: true
+        type: string
+      responses:
+        200:
+          description: search results matching criteria
+          schema:
+            type: object
+            items:
+              $ref: '#/definitions/CreateBusinessResponse'
+        400:
+          description: bad input parameter
+        404:
+          description: business not found 
+    put:
+      summary: update business.
+      description: To create business with provided details.
+      consumes:
+      - application/json
+      produces:
+      - application/json
+      parameters:
+      - in: body
+        name: UpdateBusinessRequest
+        schema:
+          $ref: '#/definitions/UpdateBusinessRequest'
+      - in: path
+        name: businessId
+        description: Unique id for the business
+        required: true
+        type: string    
+      responses:
+        201:
+          description: succefully update a business.
+        400:
+          description: invalid input, object invalid
+        409:
+          description: business already existing with provided details.      
+          
+  /business:          
+    post:
+      tags:
+      - admins
+      summary: create business.
+      description: To create business with provided details.
+      consumes:
+      - application/json
+      produces:
+      - application/json
+      parameters:
+      - in: body
+        name: CreateBusinessRequest
+        schema:
+          $ref: '#/definitions/CreateBusinessRequest'
+      responses:
+        201:
+          description: succefully created a business.
+        400:
+          description: invalid input, object invalid
+        409:
+          description: business already existing with provided details.
+  
+definitions:
+  CreateBusinessRequest:
+    type: object
+    required:
+    - firstName
+    - lastName
+    - emailId
+    - phone
+    - address
+    - businessType
+    - businessName
+    - businessDescription
+    - servicesProvided
+    properties:
+      firstName:
+        type: string
+      lastName:
+        type: string
+      emailId:
+        type: string
+      phone:
+        $ref: '#/definitions/phone'
+      address:
+        $ref: '#/definitions/address'  
+      websiteUrl:
+        type: string 
+      businessType:
+        enum: 
+          - ABC
+          - BCD
+      businessEstDate:
+        type: string
+      businessName:
+        type: string
+      businessDescription:
+        type: string  
+      servicesProvided:
+        enum:
+          - abc
+          - abd
+  phone:
+    properties:
+      phoneId:
+        type: string
+        example: UUCId
+      phoneNumber:
+        type: string
+      phoneType:
+        enum:
+          - HOME
+          - OFFICE
+          - MOBILE
+  address:
+    properties:
+      addressId:
+        type: string
+        example: UUCId
+      addressLine1:
+        type: string
+      addressLine2:
+        type: string
+      landMark:
+        type: string  
+      city:
+        type: string
+      state:
+        type: string
+      zipcode:
+        type: string  
+      phoneType:
+        enum:
+          - HOME
+          - OFFICE
+          - MOBILE        
+  CreateBusinessResponse:
+    type: object
+    required:
+    - firstName
+    - name
+    - manufacturer
+    - releaseDate
+    properties:
+      firstName:
+        type: string
+      lastName:
+        type: string
+      emailId:
+        type: string
+      phone:
+        $ref: '#/definitions/phone'
+      address:
+        $ref: '#/definitions/address'  
+      websiteUrl:
+        type: string 
+      businessType:
+        enum: 
+          - STORAGESPACEPROVIDERS
+          - PANDITHSERVICES
+          - FASHIONDESIGNERSERVICES
+          - FLEXIPRINTINGSERVICES
+          - GIFTSSHOP
+          - MATRIMONIALSERVICES
+          - EVENTORGANIZERS
+          - JEWELRYSTORES
+          - BRIDALBEAUTYPRODUCTS
+          - ACOUSTICSINGERSBANDS
+          - BRIDALHAIRCARE
+          - BRIDALSKINCARE
+          - CAKESBAKES
+          - CATERING
+          - GENERALCLEANINGSERVICES
+          - CORPORATEEVENTVENUE
+          - DJSENTERTAINMENTAGENCY
+          - EVENTPHOTOGRAPHY
+          - EVENTSECURITY
+          - FOODTRUCK
+          - GRAPHICDESIGNER
+          - FIREWORKS
+          - INVITATIONCARDPRINT
+          - KIDSPARTYHOST
+          - MAGICIANS
+          - MOBILEBAR
+          - PARTYEVENTCLEANING
+          - PETSITTING
+          - WEDDINGPHOTOGRAPHY
+          - WEDDINGTRANSPORTATION
+          - WEDDINGVENUES
+          - WEDDINGSEVENTFLORISTS
+      businessEstDate:
+        type: string
+      businessName:
+        type: string
+      businessDescription:
+        type: string  
+      servicesProvided:
+        enum: 
+          - abc
+          - abd
+          # list to be decided
+          
+  UpdateBusinessRequest:
+    type: object
+    properties:
+      emailId:
+        type: string
+      phone:
+        $ref: '#/definitions/phone'
+      address:
+        $ref: '#/definitions/address'  
+      websiteUrl:
+        type: string 
+      businessType:
+        enum: 
+          - STORAGESPACEPROVIDERS
+          - PANDITHSERVICES
+          - FASHIONDESIGNERSERVICES
+          - FLEXIPRINTINGSERVICES
+          - GIFTSSHOP
+          - MATRIMONIALSERVICES
+          - EVENTORGANIZERS
+          - JEWELRYSTORES
+          - BRIDALBEAUTYPRODUCTS
+          - ACOUSTICSINGERSBANDS
+          - BRIDALHAIRCARE
+          - BRIDALSKINCARE
+          - CAKESBAKES
+          - CATERING
+          - GENERALCLEANINGSERVICES
+          - CORPORATEEVENTVENUE
+          - DJSENTERTAINMENTAGENCY
+          - EVENTPHOTOGRAPHY
+          - EVENTSECURITY
+          - FOODTRUCK
+          - GRAPHICDESIGNER
+          - FIREWORKS
+          - INVITATIONCARDPRINT
+          - KIDSPARTYHOST
+          - MAGICIANS
+          - MOBILEBAR
+          - PARTYEVENTCLEANING
+          - PETSITTING
+          - WEDDINGPHOTOGRAPHY
+          - WEDDINGTRANSPORTATION
+          - WEDDINGVENUES
+          - WEDDINGSEVENTFLORISTS
+      businessEstDate:
+        type: string
+      businessName:
+        type: string
+      businessDescription:
+        type: string  
+      servicesProvided:
+        enum: 
+          - abc
+          - abd
+      deactivateBusiness:
+        type: string
+# Added by API Auto Mocking Plugin
+host: virtserver.swaggerhub.com
+# basePath: /saigoud1000/test/1.0.0
+schemes:
+ - https
+# Added by API Auto Mocking Plugin
+basePath: /saigoud1000/CreateBusinessV1/1.0.0
