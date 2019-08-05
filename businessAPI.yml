@@ -157,11 +157,11 @@ definitions:
         type: string
       zipcode:
         type: string  
-      phoneType:
+      addressType:
         enum:
           - HOME
           - OFFICE
-          - MOBILE        
+       
   CreateBusinessResponse:
     type: object
     required:
@@ -285,6 +285,7 @@ definitions:
           - abd
       deactivateBusiness:
         type: string
+        
 # Added by API Auto Mocking Plugin
 host: virtserver.swaggerhub.com
 # basePath: /saigoud1000/test/1.0.0
