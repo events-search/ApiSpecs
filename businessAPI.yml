@@ -101,6 +101,8 @@ definitions:
     - businessName
     - businessDescription
     - servicesProvided
+    - userName
+    - password
     properties:
       firstName:
         type: string
@@ -128,6 +130,10 @@ definitions:
         enum:
           - abc
           - abd
+      userName:
+        type: string
+      password:
+        type: string  
   phone:
     properties:
       phoneId:
@@ -285,6 +291,10 @@ definitions:
           - abd
       deactivateBusiness:
         type: string
+      userName:
+        type: string
+      password:
+        type: string  
         
 # Added by API Auto Mocking Plugin
 host: virtserver.swaggerhub.com
